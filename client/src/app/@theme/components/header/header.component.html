@@ -1,0 +1,29 @@
+<div class="header-container"
+     [class.left]="position === 'normal'"
+     [class.right]="position === 'inverse'">
+  <a (click)="logoTap()" class="logo-containter">
+    <img src = "../../../../assets/images/logo.png">
+  </a>
+  <ngx-theme-switcher></ngx-theme-switcher>
+</div>
+
+<div class="right-container">
+  <a *ngFor="let sidebar of sidebars"
+      [attr.title]="sidebar.name"
+      (click)="sidebarSelect(sidebar)" [class.hide]="sidebar.hide">
+      <div [class.selected]="sidebar.selected" class="menu_button">
+        <img [src]="'assets/images/' + sidebar.img"/>
+        <div *ngIf="sidebar.count > 0" class="red_circle">{{sidebar.count}}</div>
+      </div>
+  </a>
+</div>
+    
+<nb-actions
+  size="medium"
+  class="menu-container"
+  [class.right]="position === 'normal'"
+  [class.left]="position === 'inverse'">
+  <nb-action icon="nb-grid-b" class="toggle-layout" (click)="toggleSettings()"></nb-action>
+</nb-actions>
+
+

@@ -1,0 +1,170 @@
+@import '../../styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+
+
+@include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .selected
+  {
+    border-color: #40dc7e !important;
+    background: lightgreen;
+  }
+
+  .left {
+    display: flex;
+    width: 100%;
+    order: 0;
+    flex-direction: row;
+  }
+  .right {
+    order: 1;
+    flex-direction: row-reverse;
+  }
+
+  .logo-containter {
+    display: flex;
+    align-items: center;
+  }
+
+  .control-item {
+    display: block;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .navigation {
+      padding-right: nb-theme(padding);
+      font-size: 2.5rem;
+      text-decoration: none;
+
+      i {
+        display: block;
+      }
+
+    }
+
+    .logo {
+      padding: 0 nb-theme(padding);
+      font-size: 1.75rem;
+      font-weight: nb-theme(font-weight-bolder);
+      border-left: 1px solid nb-theme(separator);
+      white-space: nowrap;
+
+      span {
+        font-weight: nb-theme(font-weight-normal);
+      }
+    }
+  }
+
+  .toggle-layout /deep/ a {
+    display: block;
+    text-decoration: none;
+    line-height: 1;
+
+    i {
+      color: nb-theme(color-fg-highlight);
+      font-size: 2.25rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+
+    nb-action:not(.toggle-layout) {
+      border: none;
+    }
+
+    .control-item {
+      display: none;
+    }
+
+    .toggle-layout {
+      padding: 0;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+
+    nb-user /deep/ .user-name {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+
+    .header-container {
+      .logo {
+        font-size: 1.25rem;
+      }
+    }
+
+    nb-action:not(.toggle-layout) {
+      padding: 0;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .right /deep/ {
+      display: none;
+    }
+  }
+}
+
+@media (min-width:768px) {
+  .menu-container
+  {
+    display: none;
+  }
+
+  .right-container
+  {
+    display: flex;
+    float: right;
+  }
+}
+
+@media (max-width:768px) {
+  .right-container
+  {
+    display: none;
+  }
+}
+
+.menu_button {
+  width: 50px; 
+  height: 52px; 
+  border: solid 2px black; 
+  border-radius: 4px; 
+  margin: 15px; 
+  padding: 5px;
+
+  img {
+    width: 36px; 
+    height: 38px;
+  }
+}
+
+.red_circle {
+  width: 30px;
+  height: 30px;
+  color: black;
+  border-radius: 50%;
+  background: red;
+  text-align: center;
+  padding-top: 6px;
+  position: relative;
+  top: -55px;
+  right: -30px;
+  border: solid 1px #979797;
+}
+
+.hide {
+  display: none;
+}

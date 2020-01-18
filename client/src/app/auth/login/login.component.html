@@ -1,0 +1,36 @@
+<nb-layout>
+  <nb-layout-column>
+    <div class="row">
+      <div class="col-md-8  margin-auto">
+        <nb-card>
+            <nb-card-header>
+                <img [src]="'../../assets/images/logo.png'">
+            </nb-card-header>
+            <nb-card-body>
+                
+                <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                    <div class="form-group">
+                        <label for="input-email">Email address OR User Name</label>
+                        <input name="email" [(ngModel)]="user.email" id="input-email" class="form-control" placeholder="Email address" #email="ngModel" [class.form-control-danger]="email.invalid && email.touched" autofocus [minlength]="1" >
+                        <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">Email or User Name is required!</small>
+                        <!-- <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.pattern">Email should be the real one!</small> -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-password" >Password</label>
+                        <input name="password" [(ngModel)]="user.password" type="password" id="input-password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                        <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                        <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                    </div>
+
+                    <div class="form-group row">
+                        <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (email.errors?.pattern) || (user.email.length == 0) || (user.password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                        <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>    

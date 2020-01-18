@@ -1,0 +1,62 @@
+<div class="col-12 title" style="margin-bottom: 50px;">
+  STATISTICS
+</div>
+<div class="col-12" style="margin-bottom: 30px;">
+  <nb-card>
+    <nb-card-header style="font-weight: bold; font-size: 25px;">Graph</nb-card-header>
+    <nb-card-body style="height: 550px;">
+      <ngx-echarts-bar></ngx-echarts-bar>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div class="col-12 title" style="margin-bottom: 20px;">
+  History
+</div>
+<div class="col-12 title" style="margin-bottom: 20px;">
+  <!-- <select [(ngModel)]="current_type"  #selectElem (change)="selectType(selectElem.value)"  style="width:300px; border: solid 1px #979797; height:30px; margin-right:30px;">
+      <option *ngFor="let element of detail" [value]="element.type">
+          {{element.title}}
+      </option>
+  </select> -->
+
+  <my-date-range-picker name="mydaterange" (dateRangeChanged)="onDateRangeChanged_History($event)" [options]="myDateRangePickerOptions"
+  [(ngModel)]="daterange_history"  required></my-date-range-picker>
+</div>
+<div class="col-12" style="margin-bottom: 20px;">
+  <ng2-smart-table [settings]="table_settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+</div>
+
+
+<modal id="login_modal">
+  <div class="modal">
+      <div class="modal-body">
+          <div class="modal-titlleBar">
+            LOG IN
+            <button (click)="closeModal('login_modal');">X</button>
+          </div>
+          <div class="modal-main" style="height: 185px;">
+            <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+
+            <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                
+                <div class="form-group">
+                    <label for="input-password" >Password</label>
+                    <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                </div>
+
+                <div class="form-group row" style="margin:0px;">
+                    <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                    <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                </div>
+            </form>
+          </div>
+          
+      </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+

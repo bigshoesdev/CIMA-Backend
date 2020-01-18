@@ -1,0 +1,169 @@
+<div class="col-12" style="margin-bottom: 50px;display: flex;">
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/pending_rental']">PENDING RENTAL</div>
+  <div class="selected margin-right30" [routerLink]="['/pages/equipment/rented']">RENTED</div>
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/manual_entry']">MANUAL ENTRY</div>
+</div>
+
+<div class="col-12 row"  *ngIf="details.length >0">
+  <div class="col-sm-12 col-lg-8" style="padding:0px;">
+    <div style="display: flex; margin-bottom: 20px;">
+      <div class="rented_title" style="width:80px; margin-right: 20px;">
+        NAME
+      </div>
+      <div class="rented_title" style="width: 150px;">
+        ITEM
+      </div>
+    </div>
+    <div class="col-12" style="padding-left: 0px;" *ngFor="let element of details;index as i; ">
+      <div *ngIf="element.items.length > 0" [class.even] = "i % 2 == 0" [class.odd] = "i % 2 == 1" style="width: 100%; min-height: 150px; display: flex;">
+        <div class="rented_normal_title word-clip" style="width: 80px; margin-top: 5px; margin-right: 20px;">
+          {{element.user_name}}
+        </div>
+        <div class="rented_normal_title" style="width: 320px;">
+          <div *ngFor="let item of element.items;index as i;" style="display: flex; margin-bottom: 10px;">
+            <div class="pending_title" style="width: 200px; margin-top: 5px;">
+              {{item.message_web}}
+            </div>
+            <div *ngIf="item.type == 'shoe' && element.edit == true" style="margin-right: 30px;">
+              <select [(ngModel)]="item.size"  style="width:80px; border: solid 1px #979797; height:32px;">
+                <option *ngFor="let item of shoe_sizes; index as i;" [value]="item">
+                    {{item}}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="!(item.type == 'shoe' && element.edit == true)" class="pending_title" style="margin-top: 5px;width: 80px; margin-right: 30px;">
+              {{item.size}}
+            </div>
+            <!-- <button (click)="go_fullfill(item)" style="width: 80px; color: black; border-radius: 5px;">Fullfill</button> -->
+          </div>
+        </div>
+        <div >
+          <button *ngIf="element.edit == false" (click)="element.edit = true;" class="rented_button">EDIT</button>
+          <button *ngIf="element.edit == true" (click)="element.edit = false;go_confirm(element);" class="rented_button">Confirm</button>
+          <button (click)="go_return(element);" class="rented_button" style="margin-top: 20px;">Return</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-4" style="padding: 0px;">
+    <div class="rented_title" style="margin-bottom: 10px;">
+      SHOES:
+    </div>
+    <div style="display: flex;">
+      <table class="table" style="margin-right: 10px;">
+        <thead>
+          <tr>
+            <th style="width:50px;">
+              Size
+            </th>
+            <th style="width:50px;">
+              Qty
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shoe of shoe_rented_count; index as i" >
+            <td *ngIf="i < 9">
+              {{shoe.size}}
+            </td>
+            <td *ngIf="i < 9">
+              {{shoe.count}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table" style="margin-right: 10px;">
+        <thead>
+          <tr>
+            <th style="width:50px;">
+              Size
+            </th>
+            <th style="width:50px;">
+              Qty
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shoe of shoe_rented_count; index as i" >
+            <td *ngIf="i >= 9 && i < 18">
+              {{shoe.size}}
+            </td>
+            <td *ngIf="i >= 9 && i < 18">
+              {{shoe.count}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table" style="margin-right: 10px;">
+        <thead>
+          <tr>
+            <th style="width:50px;">
+              Size
+            </th>
+            <th style="width:50px;">
+              Qty
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shoe of shoe_rented_count; index as i" >
+            <td *ngIf="i >= 18 && i < shoe_rented_count.length">
+              {{shoe.size}}
+            </td>
+            <td *ngIf="i >= 18 && i < shoe_rented_count.length">
+              {{shoe.count}}
+            </td>
+          </tr>
+        </tbody>
+      </table>        
+    </div>
+   
+    <div class="rented_title" style="margin-bottom: 10px; margin-top: 10px;">
+      CHALKBAG:
+    </div>
+    <div class="rented_normal_title">
+      Quantity: {{chalkbag_rented_count}}
+    </div>
+    
+    <div class="rented_title" style="margin-bottom: 10px; margin-top: 10px;">
+      SOCKS:
+    </div>
+    <div class="rented_normal_title">
+      Quantity: {{sock_rented_count}}
+    </div>
+  </div>
+</div>
+
+
+<modal id="login_modal">
+  <div class="modal">
+      <div class="modal-body">
+          <div class="modal-titlleBar">
+            LOG IN
+            <button (click)="closeModal('login_modal');">X</button>
+          </div>
+          <div class="modal-main" style="height: 185px;">
+            <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+
+            <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                
+                <div class="form-group">
+                    <label for="input-password" >Password</label>
+                    <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                </div>
+
+                <div class="form-group row" style="margin:0px;">
+                    <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                    <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                </div>
+            </form>
+          </div>
+          
+      </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

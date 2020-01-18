@@ -1,0 +1,64 @@
+.fdms-mp-input .input-group-addon {
+    background: #1792e5;
+    color: #FFF;
+    border-radius: 0px;
+    border: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    }
+    .fdms-month-picker {
+        // width: 250px;
+        position: absolute;
+        background: #FFF;
+        right: 0;
+        top: 47px;
+        z-index: 1010;
+        border: solid 1px #2280bf;
+    }
+     
+    .d-selection-item {
+        padding: 0;
+    }
+     
+    .d-title {
+        height: 40px;
+        text-align: center;
+        background: #1792e5;
+        color: #FFF;
+        // border-bottom: solid 4px #1382ce;
+        line-height: 40px;
+    }
+     
+    .d-nav {
+        padding: 2px;
+        display: flex;
+        padding-top: 20px;
+    }
+     
+        .d-nav span {
+            cursor: pointer;
+        }
+     
+        .d-nav > .col-md-6 > span {
+            display: block;
+            text-align: center;
+        }
+     
+    .d-selection-item {
+        height: 40px;
+        text-align: center;
+        color: #303030;
+        cursor: pointer;
+    }
+     
+    .d-actions {
+        /* border-top: solid 1px #1382ce; */
+        height: 40px;
+    }
+     
+    span.d-action.d-action-cancel {
+        color: #1792e5;
+        line-height: 40px;
+        float: right;
+        cursor: pointer;
+    }

@@ -1,0 +1,225 @@
+<!-- Customer Info -->
+<div class="customerinfo row">
+  <div class="col-lg-6 col-sm-6 col-12 margin-bottom30">
+    <div class="title"> 
+      {{personal[0].value}}'s Details
+      <button (click)="go_save()" class="btn_save" style="margin-left:30px">SAVE</button>
+    </div>
+    <div class="avatar">
+      <img id="avatar_img" src={{avatar_url}} (click)="image_upload()">
+      <input type="file" id="select_image" #fileInput placeholder="Upload file..." style="display: none" (change)="change_image($event)"/>
+    </div>
+     <!-- personal -->
+    <div class="col-12 personal">
+      <div class="title"> PERSONAL</div>
+      <div class="display_flex" *ngFor="let element of personal; index as i;" style="margin-bottom: 10px;">
+        <div class="col-5 no-padding type">
+          {{element.type}}
+        </div>
+        <!-- DATE OF BIRTH: -->
+        <input *ngIf="i != 2 && i != 3" class="col-7 edit" [(ngModel)]="element.value" placeholder="Nil" >
+        <md2-datepicker *ngIf="i == 2" style="width: 100%;" [(ngModel)]="element.value"  format="YYYY/MM/DD" type="date"></md2-datepicker>
+        <select *ngIf="i == 3" [(ngModel)]="element.value" style="width: 100%;">
+          <option *ngFor="let ele of gender" [value]="ele">
+              {{ele}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-sm-6 col-12 margin-bottom30">
+    
+    <!-- available pass -->
+    <div class="col-12 personal ">
+      <div class="title">MEMBERSHIP TYPE</div>
+      <table class="col-12 table" >
+        <thead>
+          <tr>
+            <th style="width:40%">
+              Type
+              <button class="btn_plus" style="margin-left:10px"  (click)="go_add(phone_number)" >+</button>
+            </th>
+            <th style="width:20%">Quantity</th>
+            <th style="width:40%">Expire</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="available_pass.length > 0">
+            <tr *ngFor="let pass of available_pass">
+              <td (click)="go_edit(pass.type)">
+                {{(pass.type == 'promo') ? "Complementary" : (pass.type.charAt(0).toUpperCase() + pass.type.substr(1).toLowerCase())}}
+              </td>
+              <td style="color: black; text-decoration: unset;">
+                {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.quantity}}
+              </td>
+              <td class="word-clip" style="color: black; text-decoration: unset;">
+                {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.expire}}
+              </td>
+            </tr>
+        </tbody>
+      </table>    
+    </div>
+
+    <!-- SPECIAL NOTE -->
+    <div class="col-12 personal">
+      <div class="title">SPECIAL NOTE</div>
+      <input class="col-auto edit" [(ngModel)]="special_note" placeholder="Nil">
+    </div>
+
+    <!-- GUARDIAN/EMERGENCY CONTACT -->
+    <div class="col-12 personal">
+      <div class="title">GUARDIAN/EMERGENCY CONTACT</div>
+      <div class="display_flex" *ngFor="let element of emergency; index as i;" style="margin-bottom: 10px;">
+        <div class="col-5 no-padding type">
+          {{element.type}}
+        </div>
+        <input *ngIf="i < 2" class="col-7 edit" [(ngModel)]="element.value">
+        <select *ngIf="i == 2" [(ngModel)]="element.value" style="width: 100%;">
+          <option *ngFor="let ele of relationship" [value]="ele">
+              {{ele}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CLIMBING QUALIFICATION -->
+    <div class="col-12 personal ">
+      <div class="title">CLIMBING QUALIFICATION</div>
+      <p *ngIf="qualification.length == 0">Nothing</p>
+      <div class="checkbox-content">
+        <div class="col-12 checkbox_line" *ngFor="let element of qualification; index as i; count as count">
+          <div [class.hide]="i > qualification.length - 2">
+            <label for="{{'category_' + i}}">
+              <input id="{{'category_' + i}}" [(ngModel)]="element.checked" type="checkbox" style="margin-right: 10px;">
+              {{element.type}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 checkbox_line" style="margin-top: -10px;">
+          <div>
+            <label for="category_2000">
+              <input id="category_2000" (click)="click_not();" [(ngModel)]="flag_not" type="checkbox" style="margin-right: 10px;">
+              Not Available
+            </label>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-12" style="color: black; font-weight: bold; margin-top: -10px;">
+        <label for="category_1000" style="width: 100%; display: flex;">
+          <div class="col-3" style="padding: 0px;">
+            <input id="category_1000" [(ngModel)]="qualification[qualification.length - 1].checked" type="checkbox" style="margin-right: 10px;">
+            {{qualification[qualification.length - 1].type}} {{i}}
+          </div>
+          <div class="col-9">
+            <input [(ngModel)]="qualification[qualification.length - 1].message" style="border: 0px; border-bottom: solid 1px black; width: 100%; padding-left: 0px;">
+          </div>
+        </label>
+      </div>
+    </div>  
+  </div>
+</div>
+
+<div class="row" style="padding-top: 50px;">
+  <div class="col-12">
+      <div class="title margin-left30">TRANSACTION HISTORY</div>
+      <div class="value margin-bottom30">Last Visit:&nbsp;{{last_visit}} </div>
+      <div class="value margin-bottom30">Visit this month:&nbsp;{{visit_month}} </div>
+  </div>
+  <div class="col-12" style="margin-bottom: 50px;">
+      <ng2-smart-table [settings]="table_settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+      </ng2-smart-table>
+  </div>
+</div>
+
+
+<!-- start manual_checkin modal -->
+<modal id="manual_checkin">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              MANUAL CHECK IN
+              <button (click)="closeModal('manual_checkin');">X</button>
+            </div>
+            <div class="modal-main">
+              <div class="modal-main-avatar">
+                <img src={{avatar_url}}>
+              </div>
+              <div class="modal-main-description">
+                <div class="word-clip">{{personal[0].value}}</div>
+                <div class="word-clip">{{phone_number}}</div>
+              </div>
+            </div>
+            <div class="modal-body-footer">
+              <button class="pass_style" *ngFor="let element of pass_buttons" [disabled]="!element.available" (click)="real_manual_check('manual_checkin', 'in', element.type);">
+                <div>{{element.title}}</div>
+                <div>PASS</div>
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+<!-- end manual_checkin modal -->
+
+
+<!-- start manual_checkout modal -->
+<modal id="manual_checkout">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              MANUAL CHECK OUT
+              <button (click)="closeModal('manual_checkout');">X</button>
+            </div>
+            <div class="modal-main">
+              <div class="modal-main-avatar">
+                <img src={{avatar_url}}>
+              </div>
+              <div class="modal-main-description">
+                <div class="word-clip">{{personal[0].value}}</div>
+                <div class="word-clip">{{phone_number}}</div>
+              </div>
+            </div>
+            <div class="modal-body-footer">
+              <button class="pass_style" *ngFor="let element of checkout_pass_buttons" [disabled]="!element.available" (click)="real_manual_check('manual_checkout', 'out', '');">
+                <div>{{element.title}}</div>
+                <div>PASS</div>
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+<!-- end manual_checkout modal -->
+
+
+<modal id="login_modal">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              LOG IN
+              <button (click)="closeModal('login_modal');">X</button>
+            </div>
+            <div class="modal-main" style="height: 185px;">
+              <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+  
+              <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                  
+                  <div class="form-group">
+                      <label for="input-password" >Password</label>
+                      <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                  </div>
+  
+                  <div class="form-group row" style="margin:0px;">
+                      <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                      <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                  </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>

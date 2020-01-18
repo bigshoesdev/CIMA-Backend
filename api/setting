@@ -1,0 +1,214 @@
+852f1bea32342b0ea25a1a539786aedd
+
+"{
+  "created": 1326853478,
+  "livemode": false,
+  "id": "evt_00000000000000",
+  "type": "customer.subscription.deleted",
+  "object": "event",
+  "request": null,
+  "pending_webhooks": 1,
+  "api_version": "2017-08-15",
+  "data": {
+    "object": {
+      "id": "sub_00000000000000",
+      "object": "subscription",
+      "application_fee_percent": null,
+      "billing": "charge_automatically",
+      "cancel_at_period_end": false,
+      "canceled_at": null,
+      "created": 1516609078,
+      "current_period_end": 1519287478,
+      "current_period_start": 1516609078,
+      "customer": "cus_00000000000000",
+      "days_until_due": null,
+      "discount": null,
+      "ended_at": 1517042203,
+      "items": {
+        "object": "list",
+        "data": [
+          {
+            "id": "si_CBNF7CLKZnlVAI",
+            "object": "subscription_item",
+            "created": 1516609078,
+            "metadata": {
+            },
+            "plan": {
+              "id": "cima-monthly",
+              "object": "plan",
+              "amount": 6000,
+              "created": 1513327463,
+              "currency": "sgd",
+              "interval": "month",
+              "interval_count": 1,
+              "livemode": false,
+              "metadata": {
+              },
+              "name": "CIMA monthly payment",
+              "statement_descriptor": null,
+              "trial_period_days": null
+            },
+            "quantity": 1,
+            "subscription": "sub_CBNF0jMg6L5CS1"
+          }
+        ],
+        "has_more": false,
+        "total_count": 1,
+        "url": "/v1/subscription_items?subscription=sub_CBNF0jMg6L5CS1"
+      },
+      "livemode": false,
+      "metadata": {
+      },
+      "plan": {
+        "id": "cima-monthly_00000000000000",
+        "object": "plan",
+        "amount": 6000,
+        "created": 1513327463,
+        "currency": "sgd",
+        "interval": "month",
+        "interval_count": 1,
+        "livemode": false,
+        "metadata": {
+        },
+        "name": "CIMA monthly payment",
+        "statement_descriptor": null,
+        "trial_period_days": null
+      },
+      "quantity": 1,
+      "start": 1516609078,
+      "status": "canceled",
+      "tax_percent": null,
+      "trial_end": null,
+      "trial_start": null
+    }
+  }
+}"
+
+
+/usr/lib/node_modules/angular-cli/node_modules/node-sass/vendor
+
+kill ng-server: sudo kill $(sudo lsof -t -i:4200)
+
+systemctl start mongod
+
+o13s.com:3000/api/validate_qr@hexcode=ffddee
+
+
+git remote - v
+
+var temp = {
+                            id: transaction_history.length + 1,
+                            type: result[i].detail[j].message + " " + "purchase",
+                            date_time: result[i].detail[j].timestamp,
+                            action: (result[i].action == undefined) ? "System" : result[i].action,
+                            notes: ''
+                        }
+
+card_1BdExNBn0CdvpUcZrrME4UvI
+cus_C1HWNsydO2dkEj
+
+cus_C1HXEkW8XAx7PL
+card_1BdEyKBn0CdvpUcZdAx62M2L
+Digital ocean
+
+https://cloud.digitalocean.com/login
+rreeddpanda@gmail.com / asdfQWER1234!@#$
+
+Username = splitedragon
+128.199.232.38
+
+
+ssh root@128.199.232.38
+
+andersongnjoshuam@gmail.com	jpe7Qdu6l
+http://192.168.12.226:3000/pdf/v4ikevqo010s1xn9drhy.pdf
+sudo kill $(sudo lsof -t -i:4200)
+cd /Volumes/data/Project/Cima/source/
+cd /usr/local/mongodb/bin
+
+// ./mongod --dbpath /Volumes/data/Project/Cima/source/db
+
+sudo ./mongod --dbpath /Volumes/android/Hades/Cima/db
+
+Stripe
+
+https://dashboard.stripe.com/login?account_invite=qPfMqUlouW3wlkNfnWua
+
+rreeddpanda@gmail.com / asdfQWER1234!@#$
+
+Publishable key = pk_test_XKZpjGWsIcFoykT8ygLL44HQ	
+Secret key = sk_test_zLEg9tUw6Q1VbNgVpILyRM9y
+Client id = ca_Bw2kz7KjlhxIjQThAiqtjYz1y8PPm97p
+
+
+Publishable key = pk_live_9xcu8a8NlUhPOunQK3pYVNGS
+Secret key = sk_live_W7nFycLhP2Ue3ulq32ZvN7yT
+Client id = ca_Bw2k6IilPbOXNRH5eUPUXFfRrYNuCE83
+
+Customer id = cus_Bw4dhCFWYkAeaK
+
+export ANDROID_HOME=/Users/smile/Library/Android/sdk
+Gitlab
+
+https://cloud.digitalocean.com/login
+rreeddpanda@gmail.com / asdfQWER1234!@#$
+
+Username = splitedragon
+128.199.232.38
+
+// stripe response example
+
+    succed:
+        tok_1BZEQiBn0CdvpUcZFqxf3Hss length: 28
+        
+        created:1513326034
+        currency:"sgd"
+        customer:null
+        description:"Second charge"
+        destination:null
+        dispute:null
+        failure_code:null
+        failure_message:null
+        fraud_details:Object {}
+        id:"ch_1BZEQoBn0CdvpUcZswneSeTf"
+        invoice:null
+        lastResponse:IncomingMessage {_readableState: ReadableState, readable: false, domain: null, …}
+        livemode:false
+        metadata:Object {}
+        object:"charge"
+        on_behalf_of:null
+        order:null
+        outcome:Object {network_status: "approved_by_network", reason: null, risk_level: "normal", …}
+        paid:true
+        receipt_email:null
+        receipt_number:null
+        refunded:false
+        refunds:Object {object: "list", data: Array(0), has_more: false, …}
+        review:null
+        shipping:null
+        source:Object {id: "card_1BZEQiBn0CdvpUcZ3wucbQu4", object: "card", address_city: null, …}
+        source_transfer:null
+        statement_descriptor:null
+        status:"succeeded"
+        transfer_group:null
+        __proto__:Object {constructor: , __defineGetter__: , __defineSetter__: , …}
+
+    
+    error:
+
+err.message
+
+
+
+
+// deploy to server
+frontend:
+    src/app/config/config.ts 
+    node_module/ngx-intl-ph/css update
+    angular-cli.json css update
+
+backend:
+    .env 
+    server/config/development.js
+    route/temp_checkout
+npm install -g angular-cli 

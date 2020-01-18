@@ -1,0 +1,40 @@
+<div class="col-12 title" style="margin-bottom: 100px;">
+  CHANGE PASSWORD
+</div>
+
+<div class="col-12" style="display:flex;">
+    <div class="col-2">
+    </div>
+    <div class="col-4">
+      <div class="child_title" style="margin-bottom: 80px;">
+        USERNAME:
+      </div>
+      <div class="child_title" style="margin-bottom: 80px;">
+        NEW PASSWORD:
+      </div>
+      <div class="child_title" style="margin-bottom: 80px;">
+        CONFIRM NEW PASSWORD:
+      </div>
+    </div>
+    
+    <div class="col-6">
+      <div class="child_title" style="margin-bottom: 50px;">
+        <input [(ngModel)]="user_name" class="form-control" style="width: 100%;">
+      </div>
+      <div class="child_title" style="margin-bottom: 50px;">
+        <input type="password" [(ngModel)]="new_password" class="form-control" style="width: 100%;">
+      </div>
+      <div class="child_title" style="margin-bottom: 50px;">
+        <input type="password" [(ngModel)]="confirm_new_password" class="form-control" style="width: 100%;">
+      </div>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <button (click)="go_save()" class="btn_save">SAVE</button>
+    <button (click)="go_cancel()" class="btn_cancel">CANCEL</button>
+</div>
+
+
+  

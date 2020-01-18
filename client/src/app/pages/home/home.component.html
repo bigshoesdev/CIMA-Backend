@@ -1,0 +1,110 @@
+<!--start header -->
+<div class="col-12 header">
+  <div class="wh100 home_header">
+    <div class="col-lg-6 col-md-8 col-sm-4 col-is-12 col-12 header_text">
+      LIVE COUNT: {{live_count}}&nbsp;&nbsp;&nbsp;&nbsp;VISITS TO DATE: {{visit_to_date}}
+    </div>
+
+    <!-- <form  class="col-lg-6 col-sm-8 col-is-12 col-12 header_phone_number" (ngSubmit)="go_checkin(phone_number, 'button')" #myForm="ngForm" autocomplete="nope">
+      <input name="form_phone_number" [(ngModel)]="phone_number" placeholder="Phone Number" class="col-6 col-sm-8"  #form_phone_number="ngModel" [class.form-control-danger]="form_phone_number.invalid && form_phone_number.touched" autofocus>
+
+      <ngx-intl-tel-input name="form_phone_number" [(value)]="phone_number" class="col-6 col-sm-8" #form_phone_number="ngModel"></ngx-intl-tel-input>
+      
+      <button [disabled]="form_phone_number.length == 0" type="submit" class="btn col-6 col-sm-4">
+        CHECK-IN
+      </button>
+    </form> -->
+
+    <div class="col-lg-6 col-sm-8 col-is-12 col-12 header_phone_number">
+      <ngx-intl-tel-input name="form_phone_number" [(value)]="phone_number" [preferredCountries]= "['sg']" class="col-6 col-sm-8" style="height: 40px !important;"></ngx-intl-tel-input>
+   
+      <button (click)="go_checkin(phone_number, 'button')" class="btn col-6 col-sm-4 btn_checkin" >
+        CHECK-IN
+      </button>
+    </div>
+  </div>
+</div>
+<!--end header -->
+
+<!--start body -->
+<div class="col-12 main-body">
+  <div class="row">
+    <div class="col-xl-2 col-lg-2 col-sm-3 col-4 user_avatar" *ngFor="let customer of customerList">
+      <!-- <img src={{customer.avatar_url}} [routerLink]="['/pages/customerInfo/' + customer.phone_number]"> -->
+      <img src={{customer.avatar_url}} (click)="go_checkin(customer.phone_number, 'image')">
+      <div class="word-clip text-align-center" style="margin-top: 15px;" >
+        {{customer.user_name}}
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--end body -->
+
+<!-- start login modal -->
+<modal id="login_modal">
+  <div class="modal">
+      <div class="modal-body">
+          <div class="modal-titlleBar">
+            LOG IN
+            <button (click)="closeModal('login_modal');">X</button>
+          </div>
+          <div class="modal-main" style="height: 185px;">
+            <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+
+            <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+               
+                <div class="form-group">
+                    <label for="input-password" >Password</label>
+                    <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                </div>
+
+                <div class="form-group row" style="margin:0px;">
+                    <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                    <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                </div>
+            </form>
+          </div>
+          
+      </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+
+<!-- start phone_number modal -->
+<modal id="phone_number_modal">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              MANUAL CHECK IN
+              <button (click)="closeModal('phone_number_modal');">X</button>
+            </div>
+            <div class="modal-main">
+              <div class="modal-main-avatar">
+                <img src={{user_avatar}}>
+              </div>
+              <div class="modal-main-description">
+                <div class="word-clip">{{user_name}}.</div>
+                <div class="word-clip">{{phone_number}}</div>
+                <!-- <div class="modal-buttons">
+                  <button (click)="closeModal('phone_number_modal');">Yes</button>
+                </div> -->
+              </div>
+              <div style="padding-left:50px;" *ngIf="flag_daypas == false">
+                <button class="daypass_style" (click)="go_daypass();">
+                  ADD DAY PASS & CHECK-IN
+                </button>
+              </div>
+            </div>
+            <div class="modal-body-footer">
+              <button class="pass_style" *ngFor="let element of pass_buttons" [disabled]="!element.available" (click)="real_manual_check('phone_number_modal', 'in', element.type);">
+                <div>{{element.title}}</div>
+                <div>PASS</div>
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>

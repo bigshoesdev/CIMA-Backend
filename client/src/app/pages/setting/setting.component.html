@@ -1,0 +1,62 @@
+<div class="col-12 title" style="margin-bottom: 60px;">ADMIN SETTINGS</div>
+<div class="col-12" style="margin-bottom: 50px;">
+    <!-- <ng2-smart-table [settings]="table_settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (edit)="onSaveConfirm($event)"
+    (createConfirm)="onCreateConfirm($event)" (custom)="onCustom($event)"></ng2-smart-table> -->
+    <table class="col-12 table" *ngIf="admin_users.length > 0">
+        <thead>
+            <tr>
+                <th style="width:5%">ID</th>
+                <th style="width: 10%;">NAME</th>
+                <th style="width:20%;">User name</th>
+                <th style="width:30%;">Email</th>
+                <th style="width:15%;">Role</th>
+                <th style="width:15%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of admin_users">
+                <td style="width:5%; padding-top: 8px;">
+                    {{user.id}}
+                </td>
+                <td class="word-clip" style="width: 10%; padding-top: 8px;">
+                    {{user.name}}
+                </td>
+                <td class="word-clip" style="width:20%; padding-top: 8px;">
+                    {{user.user_name}}
+                </td>
+                <td style="width:30%;">
+                    <div style="display: flex;">
+                        <div class="word-clip" *ngIf ="user.edit == false" style="margin-top: 3px;">
+                            {{user.user_email}}
+                        </div>
+                        <div *ngIf ="user.edit != false"  style="margin-top: 3px;">
+                            <input type="text" [(ngModel)]="user.user_email">
+                        </div>
+                        <div style="text-align: center; margin-top:3px; ">
+                            <i class="ion-edit" style="margin-left: 20px;font-size: 20px;color: #5EC3AE;" (click)="user.edit =! user.edit;"></i>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:15%; padding-top: 8px;">
+                    <select [(ngModel)]="user.role" style="width: 80%;">
+                        <option *ngFor="let ele of role" [value]="ele.type">
+                            {{ele.title}}
+                        </option>
+                    </select>
+                    
+                </td>
+                <td style="width:15%;">
+                    <i class="ion-key" style="font-size: 25px;color: #5EC3AE; margin-right: 20px;" (click)="go_change_password(user.user_id)"></i>
+                    <i class="ion-trash-a" style="font-size: 25px;color: red;" (click)="delete_user(user)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+</div>
+<div class="col-12">
+    <button (click)="go_adduser()" class="btn_add">+ Add User</button>
+</div>
+<div class="col-12">
+    <button (click)="go_save()" class="btn_save">SAVE</button>
+    <button (click)="go_cancel()" class="btn_cancel">CANCEL</button>
+</div>

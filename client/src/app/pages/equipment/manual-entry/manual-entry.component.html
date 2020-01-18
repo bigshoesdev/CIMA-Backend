@@ -1,0 +1,106 @@
+
+<div class="col-12" style="display: flex;">
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/pending_rental']">PENDING RENTAL</div>
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/rented']">RENTED</div>
+  <div class="selected margin-right30" >MANUAL ENTRY</div>
+</div>
+
+<div class="col-8" style="margin-left: 16.66%; margin-top: 100px;">
+  <div class="col-12 display_flex" style="margin-bottom: 100px;">
+    <div class="col-12">
+      <ngx-intl-tel-input name="form_phone_number" [(value)]="phone_number" [preferredCountries]= "['sg']"></ngx-intl-tel-input>
+      <!-- <input type="text" class="form-control" [(ngModel)]="phone_number" placeholder="PHONE NUMBER"> -->
+    </div>
+  </div>
+  <div class="col-12 display_flex" style="margin-bottom: 20px;">
+    <div class="col-4 " style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      ITEM
+    </div>
+    <div class="col-3 " style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      QTY
+    </div>
+    <div class="col-3" style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      SIZE
+    </div>
+  </div>
+
+  <div class="col-12 display_flex" style="margin-bottom: 50px;">
+    <div class="col-4 " style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      <select  #selectElem1 (change)="selectItem(selectElem1.value)"  style="width:100%; border: solid 1px #979797; height:32px;">
+        <option *ngFor="let item of items" [value]="item.type">
+            {{item.title}}
+        </option>
+      </select>
+    </div>
+    <div class="col-3 " style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      <angular2-child-number-picker [min]="1" [step]="1" (onChange)="change_quantity($event)"></angular2-child-number-picker>
+    </div>
+    <div *ngIf="current_item == 'shoe'" class="col-3" style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      <select [(ngModel)]="current_size" #selectElem2 (change)="selectSize(selectElem2.value)"  style="width:100%; border: solid 1px #979797; height:32px;">
+        <option *ngFor="let item of shoe_sizes; index as i;" [value]="item">
+            {{item}}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="current_item != 'shoe'" class="col-3" style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      FREE
+    </div>
+    <div class="col-2" style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+      <button (click)="item_plus()" style="border: solid 1px #979797; background: #5EC3AE; color: white; border-radius: 5px;"> + </button>
+    </div>
+  </div>
+
+  <div class="col-12" style="display: flex;">
+    <div class="col-6" style="color: black; font-size: 20px; font-weight: bold;">
+      Picked items
+      <div *ngIf="picked_items.length != 0" class="col-12" style="color: black; font-size: 15px; font-weight: bold; padding-left: 20px; margin-top: 30px;">
+        <div *ngFor="let item of picked_items" style="margin-bottom: 20px;" >
+          {{item.title}}
+        </div>
+      </div>
+      <div *ngIf="picked_items.length == 0" class="col-12" style="color: black; font-size: 15px; font-weight: bold; padding-left: 20px; margin-top: 30px;">
+        Nothing
+      </div>
+      <div *ngIf="picked_items.length != 0" class="col-12" style="color: black; font-size: 15px; font-weight: bold; padding-left: 20px; margin-top: 30px;">
+        <button (click)="item_delete()" style="border: solid 1px #979797; background: #5EC3AE; color: white; border-radius: 5px; height: 30px;"> Release items </button>
+      </div>
+    </div>
+    <div class="col-6">
+      <button (click)="add_item()" style="border: solid 1px #979797; background: #5EC3AE; color: white; border-radius: 5px; float: right;width: 150px;height: 50px;font-size: 20px;"> CONFIRM </button>
+    </div>
+  </div>
+  
+</div>
+
+<modal id="login_modal">
+  <div class="modal">
+      <div class="modal-body">
+          <div class="modal-titlleBar">
+            LOG IN
+            <button (click)="closeModal('login_modal');">X</button>
+          </div>
+          <div class="modal-main" style="height: 185px;">
+            <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+
+            <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                
+                <div class="form-group">
+                    <label for="input-password" >Password</label>
+                    <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                </div>
+
+                <div class="form-group row" style="margin:0px;">
+                    <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                    <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                </div>
+            </form>
+          </div>
+          
+      </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
+  
+  

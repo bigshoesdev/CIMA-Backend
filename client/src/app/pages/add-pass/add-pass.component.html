@@ -1,0 +1,136 @@
+<div class="col-12">
+  <div class="col-6">
+    <div class="title_pass">
+        ADD PASS
+      </div>
+      
+      <div class="title_existing_pass">
+        EXISTING PASSES
+      </div>
+      
+      <div class="col-12" style="padding: 0px; margin-bottom: 30px;">
+        <table class="col-12 table" *ngIf="available_pass.length > 0">
+            <thead>
+              <tr>
+                <th style="width:40%">
+                  Type
+                </th>
+                <th style="width:20%">Quantity</th>
+                <th style="width:40%">Expire</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pass of available_pass">
+                  <td>
+                    {{(pass.type == 'promo') ? "Complementary" : (pass.type.charAt(0).toUpperCase() + pass.type.substr(1).toLowerCase())}}
+                  </td>
+                  <td style="color: black; text-decoration: unset;">
+                    {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.quantity}}
+                  </td>
+                  <td class="word-clip" style="color: black; text-decoration: unset;">
+                    {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.expire}}
+                  </td>
+                </tr>
+            </tbody>
+          </table>    
+      </div>
+      
+      <div class="title_existing_pass" style="margin-bottom: 30px;">
+        ADD NEW
+      </div>
+
+      <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+        <div class="col-4 child_title" style="margin-top: 7px;">PASS TYPE:</div>
+        <div class="col-8" style="color: black; font-weight: bold;">
+          <select  #selectElem (change)="selectPass(selectElem.value)"  style="width:100%; border: solid 1px #979797; height:32px;">
+            <option *ngFor="let pass of pass_type" [value]="pass.type">
+                {{pass.title}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+        <div class="col-4 child_title" style="margin-top: 7px;">START DATE:</div>
+        <div class="col-8" style="color: black; font-weight: bold;">
+          <md2-datepicker [(ngModel)]="start_date"  format="YYYY/MM/DD" type="date"></md2-datepicker>
+          <!-- <app-monthpicker></app-monthpicker> -->
+        </div>
+      </div>
+      
+      <div *ngIf="selected_pass_type != 'season'">
+        <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+          <div class="col-4 child_title" style="margin-top: 7px;">QUANTITY:</div>
+          <div class="col-8" style="color: black; font-weight: bold;">
+            <!-- <input class="edit" [(ngModel)]="quantity" type="text" /> -->
+            <angular2-number-picker *ngIf="selected_pass_type != 'promo'" [min]="1" [step]="1" [precision]="1" [inputDisabled]="true" (onChange)="onNumberChanged($event)"></angular2-number-picker>
+            <div *ngIf="selected_pass_type == 'promo'" style="margin-top: 7px;">
+              1
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+          <div class="col-4 child_title">NOTE:</div>
+          <div class="col-8" style="color: black; font-weight: bold;">
+            <textarea  class="edit" [(ngModel)]="note" style="height: 80px;" placeholder="Please insert note!"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selected_pass_type == 'season'">
+        <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+          <div class="col-4 child_title">Stripe Cus ID:</div>
+          <div class="col-8" style="color: black; font-weight: bold;">
+            <input class="edit" [(ngModel)]="stripe_customer_id" type="text" />
+           
+          </div>
+        </div>
+  
+        <div class="col-12 margin-bottom30" style="padding: 0px; display: flex;">
+          <div class="col-4 child_title">Stripe Sub ID:</div>
+          <div class="col-8" style="color: black; font-weight: bold;">
+            <input class="edit" [(ngModel)]="stripe_subscription_id" type="text" />
+            
+          </div>
+        </div>
+      </div>
+
+      
+  </div>
+  <div class="col-12">
+      <button (click)="add_pass()" class="btn_add" style="float: right;">ADD</button>
+  </div>
+</div>
+
+<modal id="login_modal">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              LOG IN
+              <button (click)="closeModal('login_modal');">X</button>
+            </div>
+            <div class="modal-main" style="height: 185px;">
+              <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+  
+              <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                  
+                  <div class="form-group">
+                      <label for="input-password" >Password</label>
+                      <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                  </div>
+  
+                  <div class="form-group row" style="margin:0px;">
+                      <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                      <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                  </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+

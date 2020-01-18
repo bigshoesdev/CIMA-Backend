@@ -1,0 +1,333 @@
+
+1.  add userInfo or get userInfo
+    URL : http://192.168.12.225:3000/api/user_signup
+    Parameter :
+        user_id: 
+        user_phoneNumber: 
+        user_email:
+        user_address:
+        firstName: ,
+        familyName: ,
+        birthDate: ,
+        nric_passNumber: nric Code, 
+        gender: ,
+        guardian_name : ,
+        guardian_phoneNumber: ,
+        guardian_relationship: , 
+        emergency_name : ,
+        emergency_phoneNumber: ,
+        emergency_relationship: ,
+        picture_avatar: ,
+        picture_sign:
+        signup_date:
+        activity_message:
+        qualification:
+        promo: true
+
+    Response : 
+    {
+        result: 1,
+        user:
+        {
+            user_id: 
+            user_phoneNumber:,
+            user_email: 
+            user_token:
+            user_address
+            firstName: ,
+            familyName: ,
+            birthDate: ,
+            nric_passNumber: nric Code, 
+            gender: ,
+            guardian_name : ,
+            guardian_phoneNumber: ,
+            guardian_relationship: , 
+            emergency_name : ,
+            emergency_phoneNumber: ,
+            emergency_relationship: ,
+            picture_avatar: ,
+            picture_sign:
+            pdf_url:
+            signup_date:
+            activity_message:
+            promopass_used: true,
+            qualification:
+        },
+        pass:
+        [
+            "day pass",
+            "season pass",
+            "multi pass"
+        ]
+            
+    }
+    
+    Description:
+        result: 1 : user exists!
+                -1: current token is not available so you must login again! 
+
+2:  checkout
+    URL : http://192.168.12.225:3000/api/checkout
+    Parameter :
+        user_id:
+        user_token:
+        stripe_token:
+        stripe_customerid:
+        total_price:
+        timestamp:  
+        checkout : Array
+            type == pass
+            pass_type: String, -- season, multi, day
+            from: Date,
+            to: Date,
+            count: 5, 10
+            quantity:
+
+            type == gear 
+            gear_type: String,shoe, sock, chalkbag
+            shoe_size:String,
+            sock_size
+            quantity: Number,
+
+            type == course
+        
+    
+    Response :
+        {
+            "result": 1
+        }
+
+    Description :
+        result: 1 : success
+                0 : message exists!
+                -1: current token is not available so you must login again! 
+
+3:  send_feedback
+    URL : http://192.168.12.225:3000/api/send_feedback
+    Parameter :
+        user_id:
+        user_token:
+        title:
+        message:
+            
+    Response :
+        {
+            "result": 1
+        }
+
+    Description :
+        result: 1 : success
+                0 : message exists!
+                -1: current token is not available so you must login again! 
+
+4:  send_email
+    URL : http://192.168.12.225:3000/api/send_email
+    Parameter:
+        user_token:
+        email:
+
+    Response:
+        {
+            "result": 1
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+
+5:  get_record
+    URL : http://192.168.12.225:3000/api/get_record
+    Parameter:
+        user_id:
+        user_token:
+
+    Response:
+        {
+            "result": 1,
+            "pass": [
+                "season" : {
+                    from: 2017-08-09
+                    to: 2017-11-09
+                    remain_count:
+                },
+                "multi" : {
+                    from: 2017-08-09
+                    to: 2018-02-09
+                    remain_count: 10
+                }
+            ],
+            "purchase": [
+                "2017-12-23": {
+                    "Season Pass"
+                },
+                "2017-12-25": {
+                    "Day Pass",
+                    "US 6.0 Shoe Rental",
+                    "Chalkbag Rental",
+                    "Socks"
+                }
+            ],
+            "usage": [
+                "2017-12-23": [
+                    {
+                        "pass_type":  "season",
+                        "from": "1108h",
+                        "to": "1323h"
+                    },
+                ],
+                "2017-12-25": [
+                    {
+                        "pass_type":  "day",
+                        "from": "1512h",
+                        "to": "1838h"
+                    },
+                ]
+                   
+            ]
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+
+6:  usage_histories
+    URL : http://192.168.12.225:3000/api/usage
+    Parameter:
+        user_id:
+        timestamp:
+        pass_type:
+        from:
+        to:
+        user_token:
+
+    Response:
+        {
+            "result": 1
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+7:  validate_qrcode
+    URL : http://192.168.12.225:3000/api/validate_qr?hexcode=abcdef
+    Response:
+        {
+            "result": 1
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+8:  validate_turnstile
+    URL : http://192.168.12.225:3000/api/validate_turnstile
+    Parameter:
+        user_id:
+        pass_type:
+        status: in, out
+        user_token:
+        
+    Response:
+        {
+            "result": 1
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+9:  getHistory
+    URL : http://192.168.12.225:3000/api/getHistory
+    Parameter:
+        user_id:
+        user_token:
+        
+    Response:
+        {
+            "result": 1
+            "pass": Array
+                {
+                    type: "season"
+                    from: ""
+                    to: ""
+                    quantity: 1
+                },
+                
+            "purchase":
+                {
+                    timestamp: "12121212",
+                    detail: [
+                        "US 6.0 Shoe Rental",
+                        "5 Pass * 2"
+                    ]
+                },
+            "usage":
+                {
+                    timestamp: "12121212",
+                    detail: [
+                        {
+                            status: "in",
+                            timestamp: "1212121212"
+                            pass_type: "multi",
+                        }
+                    ]
+                },
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+
+10. cancel_subscription
+    URL : http://192.168.12.225:3000/api/cancel_subscription
+    Parameter:
+        user_id:
+        user_token:
+    Response:
+        {
+            "result": 1
+            
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+
+11. validate_pass
+    URL : http://192.168.12.225:3000/api/validate_pass
+    Parameter:
+        user_id:
+        user_token:
+        pass_type:
+    Response:
+        {
+            "result": 1
+            
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!
+
+14. getEquipmentCount
+    URL : http://192.168.12.225:3000/api/getEquipmentCount
+    Parameter:
+        user_id:
+        user_token:
+        type: "shoe", "chalkbag",  "sock"
+    Response:
+        {
+            "result": 1,
+            "detail": [
+                {
+                    "size": "US 2.0",
+                    "quantity": 100
+                },
+                {
+                    "size": "US 3.0",
+                    "quantity": 100
+                }
+            ]
+        }
+    
+    Description :
+        result: 1 : success
+                -1: current token is not available so you must login again!

@@ -1,0 +1,393 @@
+.title {
+    color: #5EC3AE;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.selected {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.margin-right30 {
+    margin-right: 30px;
+}
+
+.display_flex {
+    display: flex;
+}
+
+.even {
+    padding-bottom: 15px;
+}
+
+.odd {
+    padding-top: 15px;
+    border-top: solid 1px #979797;
+    padding-bottom: 15px;
+}
+
+.word-clip {
+    color: black;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.rented_title {
+    color: black;
+    font-weight: bold;
+}
+
+.rented_normal_title {
+    color: black;
+}
+
+.rented_button {
+    border: solid 1px #979797;
+    background: #5EC3AE;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
+}
+
+.table {
+    width: unset !important;
+}
+
+.table thead th {
+    border: solid 1px black !important;
+    color: black;
+}
+
+.table th, .table td {
+    border: solid 1px black !important;
+    color: black;
+}
+
+.wh100 {
+    width: 100%;
+    height: 100%;
+  }
+  
+.header {
+padding: 30px 15px;
+}
+
+.main-body {
+padding: 30px 15px;
+}
+
+.header_text {
+color: black;
+padding: 15px;
+}
+
+.header_phone_number {
+float: right; 
+height: 50px; 
+padding-top:5px; 
+display: flex;
+}
+
+.header_phone_number input {
+height: 40px;
+border: solid 1px thick;
+border-radius: 5px;
+}
+
+.header_phone_number button {
+height: 40px; 
+background: #5EC3AE; 
+margin-left: 15px; 
+color: #fff; 
+border-radius: 5px;
+border: 0px !important;
+}
+
+.user_avatar {
+padding: 15px;
+}
+
+.user_avatar img {
+width: 100%;
+display: block;
+border-radius: 50%;
+border: solid 2px #777;
+}
+
+.word-clip {
+color: black;
+width: 100%;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+}
+
+.text-align-center {
+text-align: center;
+}
+
+@media (min-width:768px) {
+.home_header {
+    display: flex;
+}
+}
+
+@media (max-width:768px) {
+.home_header {
+    display: block;
+}
+}
+
+
+// modal
+body {
+font-family: roboto;
+padding: 20px;
+}
+
+nav {
+margin-bottom: 20px;
+padding-bottom: 20px;
+border-bottom: 1px solid #ddd;
+
+a {
+    margin-right: 8px;
+}
+}
+
+h1 {
+font-weight: normal;
+margin-top: 0;
+}
+
+input[type="text"] {
+display:block;
+width: 100%;
+font-family: roboto;
+}
+
+.credits {
+margin-top: 30px;
+border-top: 1px solid #ddd;
+text-align: center;
+}
+
+modal {
+/* modals are hidden by default */
+display: none;
+
+.modal {
+    /* modal container fixed across whole screen */
+    display: block;
+    position: fixed;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -285px;
+    width: 590px;
+    /* z-index must be higher than .modal-background */
+    z-index: 2000;
+    
+    /* enables scrolling for tall modals */
+    overflow: auto;
+
+    .modal-body {
+        padding: 0px;
+        background: #fff;
+        border: solid 5px #5EC3AE; 
+        border-top: 0px;
+        /* margin exposes part of the modal background */
+        margin: 10px;
+        margin-top: 200px;
+        height: 230px;
+
+        .modal-titlleBar {
+            padding-top: 5px;
+            padding-left: 15px;
+            color: #fff;
+            height: 30px;
+            width: 100%;
+            background: #5EC3AE;
+
+            button {
+                height: 25px;
+                width: 40px;
+                color: white;
+                background: #D0021B;
+                border: 0px;
+                float: right;
+                margin-top: -3px;
+                border-radius: 5px;
+            }
+        }
+
+        .modal-main {
+            padding: 15px;
+            height: 105px;
+            background: #fff;
+            display: flex;
+
+            .modal-main-avatar {
+                width: 80px;
+                height: 100%;
+
+                img {
+                    border-radius: 50%;
+                    width: 100%;
+                }
+            }
+
+            .daypass_style {
+                background: #5EC3AE;
+                border: solid 1px #979797;
+                margin-left: 10px;
+                color: #fff;
+                font-size: 13px;
+                border-radius: 5px;
+                height: 40px;
+                margin-top: 10px;
+            }
+
+            .modal-main-description {
+                padding-left: 15px;
+                padding-bottom: 0px;
+                padding-right: 0px;
+                padding-top: 5px;
+                width: 180px;
+
+                .modal-buttons
+                {
+                    width: 100%;
+                    height: 40px;
+                    background: red;
+                    margin-top: 22px;
+                    display: flex;
+                }
+            }
+        }
+
+        .modal-body-footer {
+            width: 100%;
+            height: 80px;
+            padding: 5px;
+            padding-top: 7px;
+
+            .pass_style {
+                background: #5EC3AE;
+                border: solid 1px #979797;
+                width: 125px;
+                margin-left: 10px;
+                color: #fff;
+                font-size: 13px;
+                border-radius: 5px;
+                height: 50px;
+                margin-top: 10px;
+            }
+            button:disabled {
+                background: #D8D8D8 !important;
+            }
+
+            .confirm_style {
+                background: #D8D8D8;
+                border: solid 1px #979797;
+                width: 80px;
+                margin-right: 25px;
+                color: black;
+                font-size: 18px;
+                border-radius: 5px;
+                margin-top: 30px;
+            }
+            
+            // button {
+            //     width: 50px;
+            //     border-color: solid 1px #979797; 
+            //     border-radius: 5px;
+            //     margin-right: 10px;
+            //     background: #D8D8D8;
+            //     float: right;
+            //     height: 27px;
+            // }
+        }
+    }
+}
+
+.modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* semi-transparent black  */
+    background-color: #ddd;
+    opacity: 0.75;
+    
+    /* z-index must be below .modal and above everything else  */
+    z-index: 900;
+}
+}
+
+body.modal-open {
+/* body overflow is hidden to hide main scrollbar when modal window is open */
+overflow: hidden;
+}
+
+.btn_checkin {
+margin-top: 6px;
+}
+
+
+:host /deep/ nb-layout .layout .layout-container .content .columns nb-layout-column{
+padding:2.5rem;
+display: grid;
+}
+:host /deep/ nb-card{
+margin:0
+}
+
+:host /deep/ nb-card-body{
+display:flex;align-items:center;justify-content:center
+}
+
+@media (max-width: 550px){
+:host /deep/ nb-layout .layout .layout-container .content .columns nb-layout-column{
+    padding:0
+}
+:host /deep/ nb-card{
+    border-radius:0;height:100vh
+}
+} 
+
+.full-width {
+flex: 1;
+min-width: 220px;
+}
+
+nb-checkbox {
+margin-bottom: 1rem;
+}
+
+.form-inline > * {
+margin: 0 1.5rem 1.5rem 0;
+}
+
+nb-card.inline-form-card nb-card-body {
+padding-bottom: 0;
+}
+
+.margin-auto {
+margin: auto;
+}
+
+.align-center{
+text-align: center;
+}

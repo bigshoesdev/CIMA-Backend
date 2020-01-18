@@ -1,0 +1,50 @@
+:host /deep/ nb-layout .layout .layout-container .content .columns nb-layout-column{
+    padding:2.5rem;
+    display: grid;
+  }
+  :host /deep/ nb-card{
+    margin:0
+  }
+  
+  :host /deep/ nb-card-body{
+    display:flex;align-items:center;justify-content:center
+  }
+  
+  @media (max-width: 550px){
+    :host /deep/ nb-layout .layout .layout-container .content .columns nb-layout-column{
+      padding:0
+    }
+    :host /deep/ nb-card{
+      border-radius:0;height:100vh
+    }
+  } 
+  
+  .full-width {
+    flex: 1;
+    min-width: 220px;
+  }
+  
+  nb-checkbox {
+    margin-bottom: 1rem;
+  }
+  
+  .form-inline > * {
+    margin: 0 1.5rem 1.5rem 0;
+  }
+  
+  nb-card.inline-form-card nb-card-body {
+    padding-bottom: 0;
+  }
+  
+  .margin-auto {
+    margin: auto;
+  }
+  
+  .wh100{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .align-center{
+    text-align: center;
+  }

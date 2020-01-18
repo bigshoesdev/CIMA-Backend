@@ -1,0 +1,63 @@
+.title
+{
+    color: black; 
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+.btn_save {
+    border: solid 1px #979797;
+    background: #5EC3AE;
+    color: white;
+    border-radius: 5px;
+    font-size: 25px;
+    height: 50px;
+    width: 130px;
+    margin-left:30px;
+    float: right;
+}
+
+.btn_cancel {
+    border: solid 1px #979797;
+    background: #D0021B;
+    color: white;
+    border-radius: 5px;
+    font-size: 25px;
+    height: 50px;
+    width: 130px;
+    margin-left:30px;
+    float: right;
+}
+
+.btn_add {
+    border: solid 1px #979797;
+    background: #5EC3AE;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 30px;
+    width: 130px;
+}
+
+.word-clip {
+    color: black;
+    width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border: solid 0px black !important;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.table th, .table td {
+    padding: 0.25rem;
+    vertical-align: top;
+    border: solid 0px black !important;
+    color: black;
+}

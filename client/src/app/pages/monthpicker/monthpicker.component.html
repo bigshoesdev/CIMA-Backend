@@ -1,0 +1,19 @@
+<div class="input-group fdms-mp-input">
+  <input type="text" readonly value="{{model|date: 'yyyy/MM'}}" class="form-control season_monthpicker" style="border: solid 1px #979797;" (click)="onCalendarIconClick()"/>
+  <span class="input-group-addon" (click)="onCalendarIconClick()"><i class="fa fa-calendar"></i></span>
+<div class="fdms-month-picker" *ngIf="__monthPicker.state=='open'">
+<!-- <div class="col-md-12 d-title">{{__monthPicker.selectedMonth}}, {{__monthPicker.selectedYear}}</div> -->
+<div class="col-md-12 d-title">{{__monthPicker.selectedMonth}}, {{__monthPicker.displayYear}}</div>
+<div class="col-md-12 d-nav">
+<div class="col-md-3"><span (click)="onPrevYearSelection()"><</span></div>
+<div class="col-md-6"><span (click)="switchToYearMode()">{{__monthPicker.displayYear}}</span></div>
+<div class="col-md-3" style="text-align: right;"><span (click)="onNextYearSelection()">></span></div>
+</div>
+<div class="col-md-12 d-selection-wraper row" style="margin: 0px; padding-top: 25px;">
+<div class="col-md-3 d-selection-item" *ngFor="let item of __monthPicker.selectionItems">
+              <span (click)="onselectionItemClick(item)">{{item.text}}</span></div>
+</div>
+<div class="col-md-12 d-actions">
+          <span class="d-action d-action-cancel" (click)="onCancel()">Cancel</span></div>
+</div>
+</div>

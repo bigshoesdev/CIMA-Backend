@@ -1,0 +1,65 @@
+<div class="col-12" style="display: flex; margin-bottom: 50px;">
+  <div class="selected margin-right30">PENDING RENTAL</div>
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/rented']">RENTED</div>
+  <div class="title margin-right30" [routerLink]="['/pages/equipment/manual_entry']">MANUAL ENTRY</div>
+</div>
+
+<div class="col-12" *ngFor="let element of details;index as i;">
+  <div *ngIf="element.items.length > 0" [class.even] = "i % 2 == 0" [class.odd] = "i % 2 == 1" style="width: 100%; min-height: 150px; padding: 10px; display: flex;">
+    <div class="col-3">
+      <img src={{element.user_avatar}} style="width: 100px; height: 100px;border-radius: 50%; border: solid 2px #777;">
+      <div class="pending_title" style="text-align: center; width: 100px; margin-top: 10px;">{{element.user_name}}</div>
+    </div>
+    <div class="col-9">
+      <div *ngFor="let item of element.items;index as i;" style="display: flex; margin-bottom: 10px;">
+        <div class="pending_title" style="width: 200px; margin-top: 5px;">
+          {{item.message_web}}
+        </div>
+        <div *ngIf="item.type == 'shoe'" style="margin-right: 30px;">
+          <select [(ngModel)]="item.size"  style="width:150px; border: solid 1px #979797; height:32px;">
+            <option *ngFor="let item of shoe_sizes; index as i;" [value]="item">
+                {{item}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="item.type != 'shoe'" class="pending_title" style="margin-top: 5px;width: 150px; margin-right: 30px;">
+          {{item.size}}
+        </div>
+        <button (click)="go_fullfill(item)" style="width: 150px; color: black; border-radius: 5px;">Fullfill</button>
+        <i class="fa fa-trash" style="margin-left:30px; color:white; font-size:30px;" (click)="remove_item(item)"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<modal id="login_modal">
+  <div class="modal">
+      <div class="modal-body">
+          <div class="modal-titlleBar">
+            LOG IN
+            <button (click)="closeModal('login_modal');">X</button>
+          </div>
+          <div class="modal-main" style="height: 185px;">
+            <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+
+            <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                
+                <div class="form-group">
+                    <label for="input-password" >Password</label>
+                    <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                    <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                </div>
+
+                <div class="form-group row" style="margin:0px;">
+                    <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                    <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                </div>
+            </form>
+          </div>
+          
+      </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

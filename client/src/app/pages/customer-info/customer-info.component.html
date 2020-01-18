@@ -1,0 +1,209 @@
+<!-- Customer Info -->
+<div class="customerinfo row">
+  <div class="col-12 div_button" >
+    <button class="checkin btn" (click)="check_in();" [disabled]="flag_check_btn" *ngIf="checkin_status != 'in'">CHECK IN</button>
+    <button class="checkin btn" (click)="check_out();" [disabled]="flag_check_btn"  *ngIf="checkin_status == 'in'">CHECK OUT</button>
+    <!-- <button class="checkin btn" (click)="delete();" [disabled]="flag_check_btn" >DELETE</button> -->
+  </div>
+  <div class="col-lg-6 col-sm-6 col-12 margin-bottom30" style="margin-top: -50px;">
+    <div class="title"> 
+      {{personal[0].value}}'s Details
+      <i class="ion-edit" style="margin-left: 15px;" (click)="go_customerEdit()"></i>
+    </div>
+    <div class="avatar">
+      <img src={{avatar_url}}>
+    </div>
+     <!-- personal -->
+    <div class="col-12 personal">
+      <div class="title"> PERSONAL</div>
+      <div class="display_flex" *ngFor="let element of personal" >
+        <div class="col-5 no-padding type">
+          {{element.type}}
+        </div>
+        <div class="col-7 value">
+          {{(element.value == "") ? 'Nil' : element.value}}
+        </div>
+      </div>
+
+      <button (click)="view_indem()" style="margin-left: 50px; margin-left: 20px; border: solid 1px #979797; background: #5EC3AE; color: white; border-radius: 5px; float: left;width: 200px;height: 40px;font-size: 20px;"> VIEW INDEMNITY </button>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-sm-6 col-12 margin-bottom30">
+    
+    <!-- available pass -->
+    <div class="col-12 personal ">
+      <div class="title">MEMBERSHIP TYPE</div>
+      <p *ngIf="available_pass.length == 0">Nothing</p>
+      <!-- <select *ngIf="available_pass.length > 0" #selectElem (change)="selectPass(selectElem.value)">
+          <option *ngFor="let pass of available_pass" [value]="pass.type">
+              {{pass.message}}
+          </option>
+      </select> -->
+
+      <table class="col-12 table" *ngIf="available_pass.length > 0">
+        <thead>
+          <tr>
+            <th style="width:40%">
+              Type
+            </th>
+            <th style="width:20%">Quantity</th>
+            <th style="width:40%">Expire</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pass of available_pass">
+              <td>
+                {{(pass.type == 'promo') ? "Complementary" : (pass.type.charAt(0).toUpperCase() + pass.type.substr(1).toLowerCase())}}
+              </td>
+              <td>
+                {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.quantity}}
+              </td>
+              <td class="word-clip">
+                {{(pass.type == "season" || pass.type == "promo") ? "NA" : pass.expire}}
+              </td>
+            </tr>
+        </tbody>
+      </table>    
+    </div>
+
+    <!-- SPECIAL NOTE -->
+    <div class="col-12 personal">
+      <div class="title">SPECIAL NOTE</div>
+      <p style="color: black;">{{(special_note == "") ? "Nil" : special_note}}</p>
+    </div>
+
+    <!-- GUARDIAN/EMERGENCY CONTACT -->
+    <div class="col-12 personal">
+      <div class="title">GUARDIAN/EMERGENCY CONTACT</div>
+      <div class="display_flex" *ngFor="let element of emergency" >
+        <div class="col-5 no-padding type">
+          {{element.type}}
+        </div>
+        <div class="col-7 value">
+          {{element.value}}
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIMBING QUALIFICATION -->
+    <div class="col-12 personal">
+      <div class="title">CLIMBING QUALIFICATION</div>
+      <p *ngIf="qualification.length == 0">Nothing</p>
+      <div class="col-12 type1" *ngFor="let element of qualification" >
+        <div *ngIf="element.checked === true">
+          {{element.type}}{{element.message}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="padding-top: 50px;">
+  <div class="col-12">
+      <div class="title margin-left30">TRANSACTION HISTORY</div>
+      <div class="value margin-bottom30">Last Visit:&nbsp;{{last_visit}} </div>
+      <div class="value margin-bottom30">Visit this month:&nbsp;{{visit_month}} </div>
+  </div>
+  <div class="col-12" style="margin-bottom: 50px;">
+      <ng2-smart-table [settings]="table_settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+      </ng2-smart-table>
+  </div>
+</div>
+
+
+<!-- start manual_checkin modal -->
+<modal id="manual_checkin">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              MANUAL CHECK IN
+              <button (click)="closeModal('manual_checkin');">X</button>
+            </div>
+            <div class="modal-main">
+              <div class="modal-main-avatar">
+                <img src={{avatar_url}}>
+              </div>
+              <div class="modal-main-description">
+                <div class="word-clip">{{personal[0].value}}</div>
+                <div class="word-clip">{{phone_number}}</div>
+              </div>
+              <div style="padding-left:50px;" *ngIf="flag_daypas == false">
+                <button class="daypass_style" (click)="go_daypass();">
+                  ADD DAY PASS & CHECK-IN
+                </button>
+              </div>
+            </div>
+            <div class="modal-body-footer">
+              <button class="pass_style" *ngFor="let element of pass_buttons" [disabled]="!element.available" (click)="real_manual_check('manual_checkin', 'in', element.type);">
+                <div>{{element.title}}</div>
+                <div>PASS</div>
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+<!-- end manual_checkin modal -->
+
+
+<!-- start manual_checkout modal -->
+<modal id="manual_checkout">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              MANUAL CHECK OUT
+              <button (click)="closeModal('manual_checkout');">X</button>
+            </div>
+            <div class="modal-main">
+              <div class="modal-main-avatar">
+                <img src={{avatar_url}}>
+              </div>
+              <div class="modal-main-description">
+                <div class="word-clip">{{personal[0].value}}</div>
+                <div class="word-clip">{{nphone_numberric}}</div>
+              </div>
+            
+            </div>
+            <div class="modal-body-footer">
+              <button class="pass_style" *ngFor="let element of checkout_pass_buttons" [disabled]="!element.available" (click)="real_manual_check('manual_checkout', 'out', '');">
+                <div>{{element.title}}</div>
+                <div>PASS</div>
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+<!-- end manual_checkout modal -->
+
+<modal id="login_modal">
+    <div class="modal">
+        <div class="modal-body">
+            <div class="modal-titlleBar">
+              LOG IN
+              <button (click)="closeModal('login_modal');">X</button>
+            </div>
+            <div class="modal-main" style="height: 185px;">
+              <!-- <input type="password" class="col-12" style="height: 30px; margin-top:50px;" [(ngModel)]="password" placeholder="Password" > -->
+  
+              <form class="wh100" (ngSubmit)="login()" #myForm="ngForm" autocomplete="nope">
+                  
+                  <div class="form-group">
+                      <label for="input-password" >Password</label>
+                      <input name="password" [(ngModel)]="customer_password" type="password" class="form-control" placeholder="Password" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [minlength]="6" [maxlength]="60">
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">Password is required!</small>
+                      <small class="form-text error" *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">Password should contains from 6 to 60 characters</small>
+                  </div>
+  
+                  <div class="form-group row" style="margin:0px;">
+                      <button [disabled]="(password.errors?.minlength || password.errors?.maxlength) || (customer_password.length == 0)" type="submit" class="btn btn-hero-primary btn-demo margin-auto"> Sign In</button>
+                      <!-- <button type="submit" class="btn btn-primary margin-auto">Sign in</button> -->
+                  </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
