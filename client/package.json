@@ -77,7 +77,7 @@
     "socket.io-client": "^2.0.4",
     "systemjs": "^0.20.19",
     "tether": "1.4.0",
-    "tinymce": "4.5.7",
+    "tinymce": "4.9.7",
     "typeface-exo": "0.0.22",
     "underscore": "^1.8.3",
     "web-animations-js": "2.2.5"
