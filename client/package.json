@@ -57,7 +57,7 @@
     "font-awesome": "4.7.0",
     "intl": "1.2.5",
     "ionicons": "2.0.1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "jquery-ui": "^1.12.1",
     "leaflet": "1.0.3",
     "mydaterangepicker": "^4.2.1",
